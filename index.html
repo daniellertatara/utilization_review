@@ -241,8 +241,9 @@ textarea:focus,input[type=text]:focus{border-color:var(--accent);box-shadow:0 0 
 
 /* Explicit areas keep all admission labels and controls on the same row. */
 .admitRow{
-  grid-template-columns:minmax(0,1.12fr) minmax(0,.72fr) minmax(0,1.08fr) 48px;
+  grid-template-columns:minmax(0,1fr) 300px minmax(0,1fr) 48px;
   grid-template-areas:"name date insurance remove";
+  column-gap:28px;
 }
 .admitField{width:100%;min-width:0}
 .admitField.nameField{grid-area:name}
