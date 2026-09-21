@@ -239,6 +239,13 @@ textarea:focus,input[type=text]:focus{border-color:var(--accent);box-shadow:0 0 
   .stepHead h2{font-size:20px}
 }
 
+/* Keep admission fields in distinct grid rows once the desktop layout no longer fits. */
+@media(max-width:980px){
+  .admitRow{grid-template-columns:minmax(0,1fr) 48px;gap:14px 12px}
+  .admitField.nameField,.admitField.dateField,.admitField.insuranceField{grid-column:1;grid-row:auto}
+  .removePatient{position:static!important;grid-column:2;grid-row:1;justify-self:end;align-self:end}
+}
+
 </style>
 </head>
 <body>
