@@ -251,6 +251,10 @@ textarea:focus,input[type=text]:focus{border-color:var(--accent);box-shadow:0 0 
 .admitField.insuranceField{grid-area:insurance}
 .removePatient{grid-area:remove}
 .admitRow input[type=text],.admitRow input[type=date]{display:block;width:100%;min-width:0;max-width:100%}
+/* Native date controls can exceed their grid track; contain their UI inside a matching field shell. */
+.dateControl{height:48px;overflow:hidden;border:1.5px solid #cbe90b;border-radius:12px;background:#fcffe9}
+.dateControl .admitDate{height:46px!important;min-height:46px!important;max-width:none!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+.dateControl:focus-within{border-color:#94bd26;box-shadow:0 0 0 3px rgba(170,211,45,.15)}
 
 /* Stack fields in a fixed order before the desktop grid becomes too narrow. */
 @media(max-width:980px){
@@ -483,7 +487,7 @@ function addAdmitRow(name="", date="", insurance=""){
   const row=document.createElement("div");
   row.className="admitRow";
   row.innerHTML=`<div class="admitField nameField"><label class="admitFieldLabel">Resident name</label><input type="text" class="admitName" placeholder="Resident name" value="${name.replace(/"/g,"&quot;")}" required></div>
-    <div class="admitField dateField"><label class="admitFieldLabel">Admit date</label><input type="date" class="admitDate" value="${date}" required aria-label="Admit date"></div>
+    <div class="admitField dateField"><label class="admitFieldLabel">Admit date</label><div class="dateControl"><input type="date" class="admitDate" value="${date}" required aria-label="Admit date"></div></div>
     <div class="admitField insuranceField"><label class="admitFieldLabel">Insurance / payer</label><input type="text" class="admitInsurance" placeholder="Insurance / payer" value="${insurance.replace(/"/g,"&quot;")}" required></div>
     <button type="button" class="secondary removePatient" aria-label="Remove patient">×</button>`;
   row.querySelector(".admitName").addEventListener("input",renderThumbs);
