@@ -239,16 +239,26 @@ textarea:focus,input[type=text]:focus{border-color:var(--accent);box-shadow:0 0 
   .stepHead h2{font-size:20px}
 }
 
-/* Contain each native field so its visual control cannot spill into the next grid cell. */
-.admitRow{grid-template-columns:minmax(0,1.12fr) minmax(0,.72fr) minmax(0,1.08fr) 48px}
-.admitField{width:100%;min-width:0;overflow:hidden}
+/* Explicit areas keep all admission labels and controls on the same row. */
+.admitRow{
+  grid-template-columns:minmax(0,1.12fr) minmax(0,.72fr) minmax(0,1.08fr) 48px;
+  grid-template-areas:"name date insurance remove";
+}
+.admitField{width:100%;min-width:0}
+.admitField.nameField{grid-area:name}
+.admitField.dateField{grid-area:date}
+.admitField.insuranceField{grid-area:insurance}
+.removePatient{grid-area:remove}
 .admitRow input[type=text],.admitRow input[type=date]{display:block;width:100%;min-width:0;max-width:100%}
 
-/* Keep admission fields in distinct grid rows once the desktop layout no longer fits. */
+/* Stack fields in a fixed order before the desktop grid becomes too narrow. */
 @media(max-width:980px){
-  .admitRow{grid-template-columns:minmax(0,1fr) 48px;gap:14px 12px}
-  .admitField.nameField,.admitField.dateField,.admitField.insuranceField{grid-column:1;grid-row:auto}
-  .removePatient{position:static!important;grid-column:2;grid-row:1;justify-self:end;align-self:end}
+  .admitRow{
+    grid-template-columns:minmax(0,1fr) 48px;
+    grid-template-areas:"name remove" "date date" "insurance insurance";
+    gap:14px 12px;
+  }
+  .removePatient{position:static!important;justify-self:end;align-self:end}
 }
 
 </style>
