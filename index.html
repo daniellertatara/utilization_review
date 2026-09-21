@@ -1,0 +1,1439 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>Rehab Utilization Review</title>
+  <style>
+:root{--bg:#f8f9fb;--card:#fff;--ink:#141725;--muted:#737784;--line:#eceef2;--accent:#6665f6;--accent2:#5757e8;--soft:#f1f1ff;--mint:#effaf1;--sky:#eef9fd;--lime:#dfff1f;--warn:#fff8df;--danger:#c74757;--shadow:0 8px 24px rgba(25,29,45,.05)}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Arial,sans-serif;background:#f8f9fb;color:var(--ink);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:auto;padding:38px 26px 64px}.appHeader{margin-bottom:22px}.eyebrow{font-size:12px;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}h1{margin:0;font-size:34px;letter-spacing:-.035em;line-height:1.1;font-weight:780}.sub{color:var(--muted);line-height:1.55;margin-top:9px;max-width:800px;font-size:14px}
+.notice{background:#ffffff;border:1px solid #eceef2;padding:13px 16px;border-radius:14px;margin:18px 0 8px;font-size:13px;color:#6f7480;box-shadow:0 2px 8px rgba(77,63,170,.025)}#privacyStatus{padding-left:3px}.workflow{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:16px}@media(max-width:820px){.workflow{grid-template-columns:1fr}}
+.card{background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:16px;padding:23px;box-shadow:var(--shadow)}.stepHead{display:flex;gap:12px;align-items:center;margin-bottom:17px}.stepNum{width:32px;height:32px;border-radius:10px;background:#f0efff;color:#655df5;display:flex;align-items:center;justify-content:center;font-weight:800}.stepHead h2{font-size:18px;margin:0;letter-spacing:-.018em;font-weight:760}
+.drop{border:1.5px dashed #c9caef;border-radius:15px;padding:30px 18px;text-align:center;background:#fafaff;cursor:pointer;display:block;transition:.15s;box-shadow:none}.drop:hover{border-color:#7777f3;background:#f5f5ff}.dropTitle{font-size:15px;font-weight:760;margin-bottom:5px;color:#5f60e8}input[type=file]{display:none}
+button{border:0;border-radius:11px;padding:10px 15px;font-weight:720;cursor:pointer;font-size:14px;font-family:inherit;transition:transform .12s,background .12s,box-shadow .12s}button:active{transform:translateY(1px)}button:disabled{opacity:.5;cursor:not-allowed}.primary{background:var(--accent);color:#fff;box-shadow:0 4px 10px rgba(101,93,245,.16)}.primary:hover{background:var(--accent2)}.secondary{background:#fff;color:#505563;border:1px solid #e4e6eb}.secondary:hover{background:#f4f4f8;border-color:#d9dce3}.actions{margin-top:16px;display:flex;gap:9px;flex-wrap:wrap;align-items:center}.actions .primary{min-width:118px}
+textarea,input[type=text]{width:100%;border:1px solid #dfe2e8;border-radius:12px;padding:12px 13px;font:inherit;background:#fff;color:var(--ink);outline:none}textarea:focus,input[type=text]:focus{border-color:#7777f3;box-shadow:0 0 0 3px rgba(101,93,245,.10)}textarea{min-height:245px;resize:vertical;line-height:1.5}.fieldLabel{font-size:13px;font-weight:720;display:block;margin:14px 0 7px;color:#39425f}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:14px}.thumb{position:relative;border:1px solid #e6e7ec;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 2px 8px rgba(31,37,66,.035)}.thumb img{width:100%;height:72px;object-fit:cover;display:block;background:#fafbfe}.thumb div{padding:8px 9px;font-size:11.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.thumb select{width:calc(100% - 18px);margin:0 9px 9px;border:1px solid #dfe2e8;border-radius:9px;padding:8px 9px;font:inherit;font-size:11.5px;background:#fff;color:var(--ink)}.thumbRemove{position:absolute;top:6px;right:6px;width:26px;height:26px;padding:0;border-radius:999px;background:rgba(255,255,255,.96);border:1px solid #dfe2e8;color:#727b94;font-size:16px;line-height:1;display:flex;align-items:center;justify-content:center}.thumbRemove:hover{color:var(--danger);border-color:#f0b6bd}.thumb.unassigned{border-color:#c8b970;background:#fffdf3}.status,.small{font-size:12.5px;color:var(--muted)}.status{margin-top:9px;line-height:1.45}
+.reportCard{margin-top:20px;padding:0;overflow:hidden}.reportToolbar{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;justify-content:space-between;background:#fff}.reportToolbar h2{margin:0;font-size:19px;letter-spacing:-.02em}.toolbarActions{display:flex;gap:8px;flex-wrap:wrap}#results{padding:0 20px 22px}.patient{border:1px solid #e3e5ee;border-radius:16px;margin-top:20px;overflow:hidden;background:#fff;box-shadow:0 5px 18px rgba(30,37,66,.035)}.patientHead{padding:18px 20px;background:#fafaff;border-bottom:1px solid var(--line)}.patientHead h3{margin:0;font-size:21px;line-height:1.2;font-weight:770;letter-spacing:-.025em}.patientHead .meta{color:var(--muted);font-size:12px;margin-top:5px}.section{padding:18px 20px;border-bottom:1px solid #f0f1f6}.section:last-child{border-bottom:0}.section h4{margin:0 0 13px;font-size:11px;letter-spacing:.095em;text-transform:uppercase;color:#747985;font-weight:800}.kv{display:grid;grid-template-columns:minmax(170px,190px) minmax(0,1fr);gap:0 18px;align-items:start}.field{display:contents}.k,.v{padding:8px 0;border-top:1px solid #f2f3f7}.kv .field:first-child .k,.kv .field:first-child .v{border-top:0}.k{font-weight:700;color:#4f5461;font-size:13.5px;line-height:1.45;min-width:0}.v{white-space:pre-wrap;line-height:1.65;font-size:13.5px;color:#252936;min-width:0;overflow-wrap:anywhere;word-break:normal}.k,.v,.k *,.v *{font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Arial,sans-serif!important;font-style:normal!important;font-variant:normal!important;font-stretch:normal!important;letter-spacing:normal!important;text-transform:none!important}
+@media(max-width:650px){.wrap{padding:24px 14px 42px}.appHeader h1{font-size:28px}.kv{grid-template-columns:1fr;gap:0}.k{padding:10px 0 2px;border-top:1px solid #f0f2f5}.v{padding:0 0 10px;border-top:0}.reportToolbar{align-items:flex-start;flex-direction:column}}
+.urbox{background:#fdfdff}.priority{display:inline-block;padding:5px 10px;border-radius:999px;font-size:11px;font-weight:800;background:#f0f0ff;color:#5d5edc}.priority.high{background:#fff0f1;color:#b52c3e}.priority.watch{background:#fff7df;color:#8a6500}.priority.routine{background:#edf9f1;color:#2d7a4c}.follow{background:#f7f8fc;border-radius:9px;padding:9px 10px!important;margin:4px 0}.conflict{display:inline-block;background:#fff0f2;color:var(--danger);border-radius:8px;padding:7px 9px;font-weight:720;line-height:1.4}.stairAlert{display:inline-block;background:#f4f9df;color:#536b18;border:1px solid #d9e99b;border-radius:8px;padding:7px 9px;font-weight:720;line-height:1.4}.caregiverAlert{display:inline-block;background:#f1f8d8;color:#4c6315;border:1px solid #d5e789;border-radius:8px;padding:7px 9px;font-weight:720;line-height:1.4}.homeO2Alert{display:inline-block;background:#eef8d2;color:#486014;border:1px solid #cfe578;border-radius:8px;padding:7px 9px;font-weight:720;line-height:1.4}.swallowAlert{display:inline-block;background:#f1f8d8;color:#506716;border:1px solid #d7e88d;border-radius:8px;padding:7px 9px;font-weight:720;line-height:1.4}.destinationAlert{display:inline-block;background:#f6fbdc;color:#586c19;border:1px solid #dfec9d;border-radius:8px;padding:7px 9px;font-weight:720;line-height:1.4}.aiDme{font-style:italic;color:#4f5365;background:#fafafa;border-left:3px solid #b8cf55;border-radius:6px;padding:8px 10px;display:inline-block;line-height:1.5}.facility{border:1px solid #dedfff;border-radius:16px;margin-top:24px;background:#fff;overflow:hidden;box-shadow:0 7px 20px rgba(49,47,90,.045)}.facilityHead{padding:17px 19px;background:#f1f1ff;color:#5d5edc;font-weight:780;font-size:17px;border-bottom:1px solid #dedfff;letter-spacing:-.02em}.facilityBody{padding:18px 19px;line-height:1.65;white-space:pre-wrap;font-size:13.5px;font-weight:400;color:#303a57}.editable{outline:2px dashed #8989f4;outline-offset:2px;border-radius:6px;background:#fffdf6}.editNote{font-size:12px;color:var(--muted);margin-top:8px}.emptyState{padding:30px 0 8px;text-align:center;color:var(--muted);font-size:13px}
+.admitPanel{margin-top:16px;padding:20px;border:1px solid var(--line);border-radius:16px;background:#fafafb}.admitPanelHead{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px}.admitPanelTitle{font-size:14px;font-weight:780;color:#303442;margin-bottom:3px}.admitRows{display:flex;flex-direction:column;gap:14px}.admitRow{position:relative;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(175px,.72fr) minmax(0,1.08fr) 44px;column-gap:16px;row-gap:8px;align-items:end;padding:18px 18px 16px;border:1px solid #e7e9ea;border-radius:14px;background:#fff}.admitField{min-width:0}.admitFieldLabel{display:block;font-size:12px;font-weight:760;color:#636873;margin:0 0 8px 3px;line-height:1.15}.admitRow input[type=text],.admitRow input[type=date]{width:100%;min-height:48px;border:1.5px solid #c9db73;border-radius:12px;padding:11px 13px;font:inherit;background:#fbfff1;color:var(--ink);transition:border-color .14s,background .14s,box-shadow .14s}.admitRow input:invalid{border-color:#b9d95a;background:#fcfff4}.admitRow input:focus:invalid{outline:none;border-color:#93bd22;background:#fbfff0;box-shadow:0 0 0 3px rgba(170,211,45,.15)}.removePatient{width:44px;height:48px;padding:0;display:flex;align-items:center;justify-content:center;font-size:18px;border:1px solid #e0e3e7;background:#fff;color:#555b67}.removePatient:hover{background:#f7f9ee;border-color:#cbdc80;color:#66731c}@media(max-width:900px){.admitRow{grid-template-columns:1fr 1fr 44px}.admitField.nameField{grid-column:1/-2}.admitField.insuranceField{grid-column:2}.removePatient{grid-column:3;grid-row:2}}@media(max-width:650px){.admitPanel{padding:16px}.admitPanelHead{flex-direction:column;align-items:stretch}.admitPanelHead #addPatientBtn{align-self:flex-start}.admitRow{grid-template-columns:1fr 44px;gap:12px;padding:15px}.admitField,.admitField.nameField,.admitField.insuranceField{grid-column:1}.removePatient{grid-column:2;grid-row:1;align-self:end}.admitField.dateField{grid-row:auto}.admitField.insuranceField{grid-row:auto}}
+
+/* v52 interaction-state color pass: keep hover/focus states within the Data Pages palette */
+button:focus-visible,.drop:focus-visible,.thumb select:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(101,93,245,.11);border-color:#7777f3}.admitRow input:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(170,211,45,.15);border-color:#94bd26}
+.primary:hover{background:#5757e8;box-shadow:0 6px 14px rgba(101,93,245,.18)}
+.primary:focus-visible{box-shadow:0 0 0 3px rgba(101,93,245,.14),0 4px 10px rgba(101,93,245,.16)}
+.secondary:hover{background:#f1f1ff;color:#5d5edc;border-color:#d8d9ff}
+.secondary:focus-visible{background:#f7f7ff;color:#5d5edc;border-color:#c9caef}
+.drop:hover{border-color:#7777f3;background:#f5f5ff;box-shadow:0 4px 14px rgba(101,93,245,.055)}
+.thumb{transition:border-color .14s,box-shadow .14s,transform .14s}.thumb:hover{border-color:#d8d9ef;box-shadow:0 4px 12px rgba(44,46,66,.055)}
+.thumb select:hover{border-color:#cfd0f4;background:#fbfbff}.thumb select:focus{border-color:#7777f3;box-shadow:0 0 0 3px rgba(101,93,245,.10);outline:none}
+.thumbRemove:hover{color:#b52c3e;border-color:#f0b6bd;background:#fff4f5}.thumbRemove:focus-visible{box-shadow:0 0 0 3px rgba(196,59,77,.10);border-color:#e8a4ad}
+.admitRow{transition:border-color .14s,box-shadow .14s}.admitRow:hover{border-color:#dedff0;box-shadow:0 3px 10px rgba(40,42,58,.035)}
+.admitRow input[type=text]:hover,.admitRow input[type=date]:hover{border-color:#a9ca3f;background:#fbfff0}.admitRow input[type=text]:hover,textarea:hover,input[type=text]:hover{border-color:#cfd2da}
+.admitRow input[type=text]:focus,.admitRow input[type=date]:focus{border-color:#94bd26;background:#fbfff0;box-shadow:0 0 0 3px rgba(170,211,45,.15);outline:none}
+button:disabled:hover{transform:none;box-shadow:none}
+
+/* v52 — Restore-inspired visual refinement */
+.card,.patient,.facility,.admitPanel{box-shadow:0 5px 18px rgba(29,32,48,.045)}
+.card:hover{border-color:#e5e6eb}
+.primary{background:#655df5}
+.primary:hover{background:#5c5ced}
+.stepNum{border:1px solid #dedfff}
+.drop{color:#565a66}
+.drop:hover .dropTitle{color:#5d5edc}
+.thumb{background:#fff}
+.thumb:nth-child(3n+1){border-top:3px solid #7777f3}
+.thumb:nth-child(3n+2){border-top:3px solid #96dda5}
+.thumb:nth-child(3n){border-top:3px solid #8ed4f2}
+.thumbRemove{transition:background .12s,border-color .12s,color .12s}
+.patientHead{border-left:4px solid #6868f3}
+.reportToolbar{background:#fff}
+.admitRow{background:#fff}
+.admitRow:hover{background:#fefff9;border-color:#d9e6a5}
+.facilityHead{background:#f2f2ff}
+.priority{border:1px solid rgba(86,80,217,.08)}
+.notice{box-shadow:none}
+
+/* v54 — streamlined continuous workspace */
+.flowStrip{display:flex;align-items:center;gap:10px;margin:18px 0 16px;padding:13px 15px;background:#fff;border:1px solid var(--line);border-radius:15px;box-shadow:0 4px 14px rgba(29,32,48,.035)}
+.flowItem{display:flex;align-items:center;gap:9px;min-width:0;color:#6f7480}.flowItem>span{width:27px;height:27px;flex:0 0 27px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:#f1f1ff;color:#6665f6;font-size:12px;font-weight:800}.flowItem b{display:block;font-size:12.5px;color:#353a48;line-height:1.1}.flowItem small{display:block;font-size:10.5px;color:#8a8e99;margin-top:2px;white-space:nowrap}.flowItem.active>span{background:var(--accent);color:#fff}.flowLine{height:1px;flex:1;background:#e7e8ed;min-width:18px}.workspaceStack{display:flex;flex-direction:column;gap:16px}.stepSub{font-size:12.5px;color:var(--muted);margin-top:3px}.uploadCard,.patientDetailsCard,.reviewCard{padding:22px 23px}.uploadMetaRow{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-top:10px}.uploadActions{margin-top:14px}.patientDetailsCard .admitPanel{margin-top:0}.embeddedAdmitPanel{padding:0;border:0;background:transparent}.embeddedAdmitPanel .admitPanelHead{margin-bottom:12px}.optional{font-weight:600;color:#969aa4;font-size:11px;margin-left:4px}.maskHint{margin-top:6px}.reviewCard textarea{min-height:220px}.generateBar{margin-top:14px;padding:14px 15px;border:1px solid #e7e8ed;border-radius:13px;background:#fbfbfd;display:flex;align-items:center;justify-content:space-between;gap:16px}.generateBar b{font-size:13.5px}.generateBar .primary{min-width:220px}.reportCard{margin-top:16px}
+@media(max-width:760px){.flowStrip{overflow-x:auto;justify-content:flex-start}.flowLine{min-width:22px;flex:0 0 22px}.flowItem small{display:none}.uploadMetaRow,.generateBar{align-items:flex-start;flex-direction:column}.generateBar .primary{width:100%;min-width:0}.uploadCard,.patientDetailsCard,.reviewCard{padding:18px}.admitRow{grid-template-columns:1fr 1fr}.admitRow .insuranceField{grid-column:1 / -1}.admitRow .removePatient{position:absolute;top:10px;right:10px}.admitPanelHead{padding-right:0}}
+
+
+/* v67: adds clearly labeled AI-Recommended DME under Discharge Plan; preserves v66 behavior */
+.patientDetailsCard{overflow:visible}
+.embeddedAdmitPanel{overflow:visible}
+.admitRows{gap:16px}
+.admitRow{
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(240px,1.25fr) minmax(180px,.72fr) minmax(240px,1.1fr) 48px;
+  gap:14px 18px;
+  align-items:end;
+  padding:18px;
+  overflow:visible;
+}
+.admitField{min-width:0;display:flex;flex-direction:column}
+.admitFieldLabel{min-height:16px;margin:0 0 8px 2px}
+.admitRow input[type=text],.admitRow input[type=date]{height:48px;min-height:48px;margin:0}
+.removePatient{position:static!important;grid-column:4;grid-row:1;align-self:end;width:48px;height:48px;min-width:48px;margin:0}
+@media(max-width:980px){
+  .admitRow{grid-template-columns:minmax(0,1fr) minmax(175px,.72fr) 48px}
+  .admitField.nameField{grid-column:1}
+  .admitField.dateField{grid-column:2}
+  .admitField.insuranceField{grid-column:1 / 3;grid-row:2}
+  .removePatient{grid-column:3;grid-row:1;align-self:end}
+}
+@media(max-width:680px){
+  .admitPanel{padding:0}
+  .admitPanelHead{gap:12px;margin-bottom:14px}
+  .admitRow{grid-template-columns:1fr 48px;padding:15px;gap:12px}
+  .admitField.nameField,.admitField.dateField,.admitField.insuranceField{grid-column:1 / -1;grid-row:auto}
+  .removePatient{grid-column:2;grid-row:1;justify-self:end;align-self:start}
+  .admitField.nameField{padding-right:58px}
+}
+
+
+
+/* v79 — removed Primary ICD-10 Conflict field */
+:root{
+  --bg:#f4f5f8;
+  --card:#ffffff;
+  --ink:#121522;
+  --muted:#767b89;
+  --line:#e4e6ed;
+  --accent:#6258ef;
+  --accent2:#5149d9;
+  --soft:#f1efff;
+  --mint:#eff9ef;
+  --sky:#eef8fd;
+  --lime:#dfff1f;
+  --lime2:#c9f10b;
+  --limeSoft:#f8ffd9;
+  --warn:#fff8df;
+  --danger:#c74757;
+  --shadow:0 12px 30px rgba(25,29,45,.06)
+}
+body{background:var(--bg);color:var(--ink)}
+.wrap{max-width:1180px;padding-top:26px}
+.appHeader{
+  position:relative;
+  overflow:hidden;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:30px 34px 28px;
+  box-shadow:var(--shadow);
+  margin-bottom:18px
+}
+.appHeader:before{content:"";position:absolute;left:0;right:0;top:0;height:10px;background:var(--lime)}
+.eyebrow{
+  display:inline-flex;align-items:center;
+  margin:10px 0 18px;
+  padding:10px 18px;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--lime),#eaff62);
+  border:1px solid #cae70d;
+  color:#121522;
+  font-size:12px;font-weight:850;letter-spacing:.09em
+}
+h1{font-size:46px;font-weight:850;letter-spacing:-.045em;color:#10131f}
+.sub{font-size:16px;color:#737988;max-width:900px}
+.notice{
+  background:#fff;
+  border:1px solid var(--line)!important;
+  border-radius:20px!important;
+  box-shadow:0 8px 22px rgba(25,29,45,.045);
+  color:#59606f!important
+}
+#privacyStatus{padding-left:4px}
+.flowStrip{padding:0;background:transparent;border:0;box-shadow:none;gap:12px;margin:18px 0}
+.flowItem{
+  flex:1;
+  padding:13px 14px;
+  border:1px solid #dedcf8;
+  border-radius:14px;
+  background:#f7f6ff;
+  color:#6e72a0
+}
+.flowItem>span{background:#e9e6ff;color:#5f55ed}
+.flowItem b{font-size:13px;color:#6b6e9a}
+.flowItem small{color:#8b8fa2}
+.flowItem.active{
+  background:linear-gradient(90deg,var(--lime),#edff76);
+  border-color:#d7ed16;
+  color:#121522
+}
+.flowItem.active>span{background:#9fd800;color:#121522}
+.flowItem.active b,.flowItem.active small{color:#121522}
+.flowLine{display:none}
+.workspaceStack{gap:18px}
+.card{
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:26px;
+  box-shadow:var(--shadow)
+}
+.stepHead{margin-bottom:20px}.stepHead h2{font-size:22px;font-weight:830;color:#151827}
+.stepNum{width:42px;height:42px;border-radius:14px;background:#efedff;color:#5e55ee;border:1px solid #d9d5ff;font-size:17px}
+.stepSub{color:#7b8090!important;font-size:14px!important}
+.uploadCard{border-top:7px solid var(--lime)}
+.drop{
+  min-height:150px!important;
+  border:2px dashed #c7c4fa!important;
+  border-radius:18px!important;
+  background:linear-gradient(180deg,#fff 0%,#fbfaff 100%)!important;
+  display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;
+  transition:border-color .15s,background .15s,transform .15s
+}
+.drop:hover{border-color:var(--accent)!important;background:#f8f6ff!important;transform:translateY(-1px)}
+.dropTitle{font-weight:820!important;color:#191c2b!important;font-size:18px!important}
+.uploadMetaRow{background:#fbfbfd;border-radius:12px;padding:10px 12px;margin-top:12px}
+.docChecklist{background:#fbfbfd;border:1px solid #e7e8ed;border-radius:13px;padding:13px 15px;margin-bottom:14px}
+.docChecklist b{display:block;font-size:13.5px;color:#151827;font-weight:800;margin-bottom:7px}
+.docChecklist ul{margin:0;padding-left:18px;list-style:disc}
+.docChecklist li{font-size:12.5px;color:#565a66;line-height:1.55;margin:0 0 3px}
+.docChecklist li:last-child{margin-bottom:0}
+.docChecklist li span{color:#151827;font-weight:750}
+.docChecklist .checklistNote{font-size:11.5px;color:#8a8e99;margin-top:8px}
+button{border-radius:12px;font-weight:780}
+.primary{background:var(--accent);box-shadow:0 6px 16px rgba(98,88,239,.18)}
+.primary:hover{background:var(--accent2);box-shadow:0 8px 18px rgba(98,88,239,.24)}
+.secondary{background:#fff;border-color:#dfe1e8;color:#4f5564}
+.secondary:hover{background:#f7f6ff;border-color:#cac7f7;color:#4f49c8}
+#addPatientBtn{background:var(--lime);border-color:#d2ea0d;color:#161923}
+#addPatientBtn:hover{background:var(--lime2);border-color:#bdda00;color:#10131d}
+textarea,input[type=text]{border-color:#dfe2e8}
+textarea:focus,input[type=text]:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(98,88,239,.11)}
+.patientDetailsCard{background:#fff}
+.admitPanel{background:#fafafa;border-color:#e7e8ed}
+.admitRow{border-color:#e7e8ed;box-shadow:0 3px 10px rgba(25,29,45,.025)}
+.admitRow input[type=text],.admitRow input[type=date]{border-color:#cbe90b;background:#fcffe9}
+.admitRow input:invalid{border-color:#d8ef35;background:#fdffef}
+.admitRow input:focus:invalid{border-color:#a8cf00;background:#fbffe5;box-shadow:0 0 0 3px rgba(202,239,11,.18)}
+.removePatient:hover{background:#fbffe7;border-color:#cce51f;color:#5f6b00}
+.reviewCard{border-top:7px solid #d8d4ff}
+.generateBar{background:#faf9ff!important;border:1px solid #e4e1ff!important;border-radius:16px!important;padding:18px!important}
+.generateBar .primary{font-size:15px;padding:12px 18px}
+.reportCard{border-top:7px solid var(--lime);border-radius:22px}
+.reportToolbar{background:#fff;padding:20px 22px}.reportToolbar h2{font-size:22px;font-weight:830}
+.patient{border-radius:18px}.patientHead{background:#fbfbff}.patientHead h3{font-weight:830}
+.section h4{color:#665ced}
+.priority{background:#f0efff;color:#5c55d9}
+.facility{border-color:#dddbff}.facilityHead{background:#f3f1ff;color:#5d55dc}
+.thumb{border-color:#e2e4eb;border-radius:14px}.thumb:hover{border-color:#c7c4f4;box-shadow:0 7px 18px rgba(78,73,148,.08)}
+.thumbRemove:hover{color:#616a00;border-color:#d4e52a;background:#fbffe7}
+.stairAlert,.caregiverAlert,.homeO2Alert,.swallowAlert,.destinationAlert{background:#f7ffd7;border-color:#d7e92a;color:#526300}
+.aiDme{background:#fbffe9;border-left-color:#cce510;color:#4d5461}
+@media(max-width:700px){
+  .wrap{padding:18px 16px 44px}
+  .appHeader{padding:24px 20px 22px;border-radius:20px}
+  h1{font-size:38px}
+  .sub{font-size:15px}
+  .flowStrip{overflow-x:auto;gap:8px;padding-bottom:2px}
+  .flowItem{min-width:150px;padding:11px 12px}
+  .card{padding:20px;border-radius:20px}
+  .stepHead h2{font-size:20px}
+}
+
+/* Explicit areas keep all admission labels and controls on the same row. */
+.admitRow{
+  grid-template-columns:repeat(3,minmax(0,1fr)) 48px;
+  grid-template-areas:"name date insurance remove";
+  column-gap:28px;
+}
+.admitField{width:100%;min-width:0}
+.admitField.nameField{grid-area:name}
+.admitField.dateField{grid-area:date}
+.admitField.insuranceField{grid-area:insurance}
+.removePatient{grid-area:remove}
+.admitRow input[type=text],.admitRow input[type=date]{display:block;width:100%;min-width:0;max-width:100%}
+
+/* Stack fields in a fixed order before the desktop grid becomes too narrow. */
+@media(max-width:980px){
+  .admitRow{
+    grid-template-columns:minmax(0,1fr) 48px;
+    grid-template-areas:"name remove" "date date" "insurance insurance";
+    gap:14px 12px;
+  }
+  .removePatient{position:static!important;justify-self:end;align-self:end}
+}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="appHeader">
+    <div class="eyebrow">THERAPY REVIEW TOOL · v79</div>
+    <h1>Utilization Review Generator</h1>
+    <div class="sub">Upload up to 25 source files — include PT/OT/SLP documentation and a chart note from the NP/MD — assign them to the correct patient, review the extracted text, and generate a patient-by-patient utilization review in a privacy-protected session.</div>
+  </div>
+
+  <div class="notice"><b>Privacy-Protected Session:</b> Patient files and extracted text are kept in browser memory only and are not intentionally saved by this app. Use only on an approved device/network. Patient data is cleared after 20 minutes of inactivity, when you use <b>Clear Patient Data</b>, and after PDF download. Name masking is optional and does not remove every possible identifier.</div>
+  <div id="privacyStatus" class="status" style="margin:8px 0 14px">Privacy session active · no persistent patient-text cache</div>
+
+  <div class="flowStrip" aria-label="Review workflow">
+    <div class="flowItem active"><span>1</span><div><b>Documents</b><small>Upload & assign</small></div></div>
+    <div class="flowLine"></div>
+    <div class="flowItem"><span>2</span><div><b>Patient details</b><small>Admission & payer</small></div></div>
+    <div class="flowLine"></div>
+    <div class="flowItem"><span>3</span><div><b>Review</b><small>Check extracted text</small></div></div>
+    <div class="flowLine"></div>
+    <div class="flowItem"><span>4</span><div><b>Generate</b><small>Create breakdown</small></div></div>
+  </div>
+
+  <div class="workspaceStack">
+    <div class="card uploadCard">
+      <div class="stepHead"><div class="stepNum">1</div><div><h2>Upload source files</h2><div class="stepSub">Add PT/OT/SLP documentation and a chart note from the NP/MD, then assign each file to the correct patient.</div></div></div>
+      <div class="docChecklist">
+        <b>Include for each resident</b>
+        <ul>
+          <li><span>PT documentation</span> — evaluation, progress note, and recent daily notes</li>
+          <li><span>OT documentation</span> — evaluation, progress note, and recent daily notes</li>
+          <li><span>SLP documentation</span> — evaluation, progress note, and recent daily notes (if the resident is on caseload)</li>
+          <li><span>Chart note from the NP/MD</span> — H&amp;P or most recent provider progress note</li>
+        </ul>
+        <div class="checklistNote">Missing therapy or provider documentation limits what the review can support, so the report notes the gap rather than inferring it.</div>
+      </div>
+      <label class="drop" for="files"><div class="dropTitle">Add files</div><span class="small">PT/OT/SLP notes &amp; NP/MD chart note · PDF, PNG, or JPG · up to 25 files</span></label>
+      <input id="files" type="file" accept="image/*,application/pdf,.pdf" multiple>
+      <input id="moreFiles" type="file" accept="image/*,application/pdf,.pdf" multiple>
+      <div class="uploadMetaRow"><div id="fileCount" class="status">No files loaded. Add PT/OT/SLP notes and the NP/MD chart note.</div><div class="small">Add more files anytime without replacing what is already loaded.</div></div>
+      <div id="thumbs" class="thumbs"></div>
+      <div class="actions uploadActions">
+        <button class="primary" id="extractBtn">Extract text</button>
+        <button class="secondary" id="addFilesBtn">+ Add more files</button>
+        <button class="secondary" id="clearBtn">Clear Patient Data</button>
+      </div>
+      <div id="ocrStatus" class="status"></div>
+    </div>
+
+    <div class="card patientDetailsCard">
+      <div class="stepHead"><div class="stepNum">2</div><div><h2>Patient admission & insurance</h2><div class="stepSub">Complete the required information for each resident before generating the review.</div></div></div>
+      <div class="admitPanel embeddedAdmitPanel">
+        <div class="admitPanelHead">
+          <div><div class="small">Resident name, admit date, and insurance are required. Admission date = Day 1.</div></div>
+          <button class="secondary" type="button" id="addPatientBtn">+ Add patient</button>
+        </div>
+        <div id="admitRows" class="admitRows"></div>
+      </div>
+      <label class="fieldLabel">Patient names to mask before AI analysis <span class="optional">Optional</span></label>
+      <input id="names" type="text" placeholder="Example: Jamie Example, Taylor Sample">
+      <div class="small maskHint">Comma-separated. Names are restored locally in the finished report.</div>
+    </div>
+
+    <div class="card reviewCard">
+      <div class="stepHead"><div class="stepNum">3</div><div><h2>Review extracted text</h2><div class="stepSub">Correct anything important before generating the patient breakdown.</div></div></div>
+      <textarea id="rawText" placeholder="Extracted file text appears here after extraction."></textarea>
+      <div class="generateBar">
+        <div><b>Ready to generate?</b><div class="small">Required patient details must be complete for every resident.</div></div>
+        <button class="primary" id="analyzeBtn">Generate patient breakdown</button>
+      </div>
+      <div id="aiStatus" class="status"></div>
+    </div>
+  </div>
+
+  <div class="card reportCard">
+    <div class="reportToolbar">
+      <h2 style="margin:0">Patient Breakdown</h2>
+      <div class="toolbarActions"><button class="secondary" id="editBtn">Edit breakdown</button><button class="secondary" id="copyBtn">Copy report</button><button class="primary" id="pdfBtn">Download PDF</button></div>
+    </div>
+    <div id="results"><div class="emptyState">Your generated patient breakdown will appear here.</div></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs" type="module"></script>
+<script type="module">
+  import * as pdfjsLib from "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs";
+  pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs";
+  window.pdfjsLib = pdfjsLib;
+</script>
+<script>
+
+const $=id=>document.getElementById(id);
+
+const MAX_FILES=25;
+let selectedFiles=[], latestTextReport="";
+const filePatientAssignments=new Map();
+const extractionMemoryCache=new Map();
+const patientReportCache=new Map();
+const facilityReportCache=new Map();
+const evidenceSummaryCache=new Map();
+const IS_IOS=/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform==="MacIntel" && navigator.maxTouchPoints>1);
+const EXTRACT_CONCURRENCY=IS_IOS?2:3;
+const PATIENT_ANALYSIS_CONCURRENCY=/iPad|iPhone|iPod/i.test(navigator.userAgent)?2:3;
+function fileKey(f){return `${f.name}::${f.size}::${f.lastModified}`;}
+function fastHash(str){
+  let h=2166136261;
+  for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619);}
+  return (h>>>0).toString(36)+":"+str.length;
+}
+async function mapLimit(items,limit,worker){
+  const out=new Array(items.length); let next=0;
+  const runners=Array.from({length:Math.min(limit,items.length)},async()=>{
+    while(true){const i=next++; if(i>=items.length) break; out[i]=await worker(items[i],i);}
+  });
+  await Promise.all(runners); return out;
+}
+function purgeLegacyCache(){
+  try{ if('indexedDB' in window) indexedDB.deleteDatabase('rehab-ur-cache'); }catch(_){}
+}
+purgeLegacyCache();
+async function cacheGet(key){
+  return extractionMemoryCache.has(key)?extractionMemoryCache.get(key):null;
+}
+async function cachePut(key,value){
+  extractionMemoryCache.set(key,value);
+}
+function extractLocalIcdEvidence(text){
+  // Fast client-side ICD-10 pre-scan. This does not decide which code is correct;
+  // it simply places likely diagnosis/code lines near the top of the AI input so
+  // the model can verify Primary ICD-10 / Treatment Diagnoses faster.
+  const lines=String(text||"").split(/\r?\n/);
+  const codeRe=/\b[A-Z][0-9][0-9A-Z](?:\.[0-9A-Z]{1,4})?\b/g;
+  const seen=new Set(), rows=[];
+  const clean=(v)=>String(v||"").replace(/\s+/g," ").trim();
+  for(let i=0;i<lines.length;i++){
+    const line=clean(lines[i]);
+    if(!line) continue;
+    const matches=[...line.matchAll(codeRe)];
+    if(!matches.length) continue;
+    const nearby=clean([lines[i-2],lines[i-1],lines[i],lines[i+1],lines[i+2]].filter(Boolean).join(" | "));
+    const diagContext=/diagnos|primary|principal|medical dx|medical diagnosis|treatment dx|treating dx|therapy dx|icd-?10/i.test(nearby);
+    if(!diagContext) continue;
+    let discipline="";
+    if(/\bPT\b|physical therap/i.test(nearby)) discipline="PT";
+    else if(/\bOT\b|occupational therap/i.test(nearby)) discipline="OT";
+    else if(/\bSLP\b|speech(?:[- ]language)? therap|speech path/i.test(nearby)) discipline="SLP";
+    let kind="Other";
+    if(/\b(primary|principal|medical dx|medical diagnosis)\b/i.test(nearby)) kind="Primary";
+    else if(/\b(treatment|treating|therapy)\s*(dx|diagnos)/i.test(nearby)) kind="Treatment";
+    for(const m of matches){
+      const code=m[0].toUpperCase();
+      const key=`${discipline}|${kind}|${code}|${line.toLowerCase()}`;
+      if(seen.has(key)) continue;
+      seen.add(key);
+      rows.push({discipline,kind,code,snippet:line.slice(0,220)});
+      if(rows.length>=24) break;
+    }
+    if(rows.length>=24) break;
+  }
+  if(!rows.length) return "";
+  const order=["Primary","Treatment","Other"];
+  const chunks=[];
+  for(const kind of order){
+    const group=rows.filter(r=>r.kind===kind);
+    if(!group.length) continue;
+    chunks.push(`${kind} candidates:`);
+    for(const r of group){
+      chunks.push(`- ${r.discipline?`${r.discipline} | `:""}${r.code} | ${r.snippet}`);
+    }
+  }
+  return `LOCAL ICD-10 CANDIDATES (client-side retrieval aid only; verify against source documentation and preserve discipline conflicts):\n${chunks.join("\n")}`;
+}
+
+function compactSourceText(text){
+  // Speed-focused local cleanup before any AI call. Keep clinically meaningful text,
+  // remove exact duplicate pages, repeated boilerplate, and low-value billing metadata.
+  const parts=text.split(/(?=\n--- PAGE \d+ ---\n|\n--- PDF \d+:|\n--- SCREENSHOT \d+:)/g);
+  const seenPages=new Set(), seenLongLines=new Set(), kept=[];
+  const dropLine=(line)=>{
+    const t=line.trim();
+    if(!t) return false;
+    // Common rehab billing/CPT boilerplate that adds tokens but not functional evidence.
+    if(/^(CPT Codes?|Billing Information|Unit Calculation Method|License Number|NPI|Provider Signature|Electronically signed by)\b/i.test(t)) return true;
+    if(/^(97110|97112|97116|97530|97535|92507|92526|92610|97162|97166)\b/.test(t) && /THERAPEUTIC|PROCEDURE|ACTIVIT|GAIT TRAINING|EVALUATION|TREATMENT/i.test(t)) return true;
+    if(/THERAPEUTIC PROCEDURE,? 1 OR MORE AREAS,? EACH 15 MINUTES/i.test(t)) return true;
+    if(/NEUROMUSCULAR REEDUCATION OF MOVEMENT,? BALANCE,? COORDINATION/i.test(t)) return true;
+    if(/GAIT TRAINING \(INCLUDES STAIR CLIMBING\)/i.test(t)) return true;
+    if(/PHYSICAL THERAPY EVALUATION: .*COMPLEXITY/i.test(t)) return true;
+    if(/OCCUPATIONAL THERAPY EVALUATION: .*COMPLEXITY/i.test(t)) return true;
+    return false;
+  };
+  for(const part of parts){
+    if(!part.trim()) continue;
+    let normalized=part.replace(/[ \t]+/g,' ').replace(/\n{3,}/g,'\n\n').trim();
+    const pageKey=fastHash(normalized.replace(/--- PAGE \d+ ---/,'--- PAGE ---'));
+    if(seenPages.has(pageKey)) continue;
+    seenPages.add(pageKey);
+    const lines=[];
+    for(const rawLine of normalized.split('\n')){
+      const line=rawLine.trim();
+      if(dropLine(line)) continue;
+      // Repeated long headers/footer text only needs to be sent once.
+      if(line.length>=70){
+        const lk=fastHash(line.toLowerCase());
+        if(seenLongLines.has(lk)) continue;
+        seenLongLines.add(lk);
+      }
+      lines.push(rawLine);
+    }
+    normalized=lines.join('\n').replace(/\n{3,}/g,'\n\n').trim();
+    if(normalized) kept.push(normalized);
+  }
+  return kept.join('\n\n');
+}
+
+function addAdmitRow(name="", date="", insurance=""){
+  const row=document.createElement("div");
+  row.className="admitRow";
+  row.innerHTML=`<div class="admitField nameField"><label class="admitFieldLabel">Resident name</label><input type="text" class="admitName" placeholder="Resident name" value="${name.replace(/"/g,"&quot;")}" required></div>
+    <div class="admitField dateField"><label class="admitFieldLabel">Admit date</label><input type="date" class="admitDate" value="${date}" required aria-label="Admit date"></div>
+    <div class="admitField insuranceField"><label class="admitFieldLabel">Insurance / payer</label><input type="text" class="admitInsurance" placeholder="Insurance / payer" value="${insurance.replace(/"/g,"&quot;")}" required></div>
+    <button type="button" class="secondary removePatient" aria-label="Remove patient">×</button>`;
+  row.querySelector(".admitName").addEventListener("input",renderThumbs);
+  row.querySelector(".removePatient").onclick=()=>{
+    row.remove();
+    if(!$("admitRows").children.length) addAdmitRow();
+    renderThumbs();
+  };
+  $("admitRows").appendChild(row);
+  renderThumbs();
+}
+function patientNames(){
+  return [...document.querySelectorAll(".admitName")].map(x=>x.value.trim()).filter(Boolean);
+}
+function setFiles(incoming,{replace=false}={}){
+  const base=replace?[]:selectedFiles.slice();
+  const seen=new Set(base.map(fileKey));
+  const before=base.length;
+  for(const f of incoming){
+    if(base.length>=MAX_FILES) break;
+    const k=fileKey(f);
+    if(seen.has(k)) continue;
+    base.push(f); seen.add(k);
+  }
+  selectedFiles=base.slice(0,MAX_FILES);
+  renderThumbs();
+  if(incoming.length > (selectedFiles.length-before)){
+    $("ocrStatus").textContent=`Maximum ${MAX_FILES} files. Extra or duplicate files were not added.`;
+  }
+}
+$("addPatientBtn").onclick=()=>addAdmitRow();
+addAdmitRow();
+
+function localTodayISO(){
+  const d=new Date();
+  const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,"0"), day=String(d.getDate()).padStart(2,"0");
+  return `${y}-${m}-${day}`;
+}
+function inclusiveDayCount(admitISO, reviewISO){
+  if(!admitISO || !reviewISO) return "";
+  const [ay,am,ad]=admitISO.split("-").map(Number);
+  const [ry,rm,rd]=reviewISO.split("-").map(Number);
+  const a=Date.UTC(ay,am-1,ad), r=Date.UTC(ry,rm-1,rd);
+  const diff=Math.floor((r-a)/86400000)+1;
+  return diff>=1 ? diff : "";
+}
+
+$("files").addEventListener("change",e=>{
+  setFiles(Array.from(e.target.files||[]));
+  // Clear the picker so the user can open it again and keep adding files
+  // without replacing anything already loaded.
+  $("files").value="";
+});
+$("addFilesBtn").onclick=()=>$("moreFiles").click();
+$("moreFiles").addEventListener("change",e=>{
+  const incoming=Array.from(e.target.files||[]);
+  setFiles(incoming);
+  $("moreFiles").value="";
+});
+function renderThumbs(){
+  if(!$("thumbs")) return;
+  $("thumbs").innerHTML="";
+  const pdfCount=selectedFiles.filter(f=>f.type==="application/pdf"||f.name.toLowerCase().endsWith(".pdf")).length;
+  $("fileCount").textContent=selectedFiles.length
+    ? `${selectedFiles.length} of ${MAX_FILES} files loaded${pdfCount?` · ${pdfCount} PDF${pdfCount===1?"":"s"}`:""}`
+    : "No files loaded. Add PT/OT/SLP notes and the NP/MD chart note.";
+  const names=patientNames();
+  selectedFiles.forEach(f=>{
+    const key=fileKey(f);
+    let assigned=filePatientAssignments.get(key)||"";
+    if(assigned && !names.includes(assigned)){ filePatientAssignments.delete(key); assigned=""; }
+    const d=document.createElement("div"); d.className="thumb"+(assigned?"":" unassigned");
+    const rm=document.createElement("button");
+    rm.type="button"; rm.className="thumbRemove"; rm.setAttribute("aria-label",`Remove ${f.name}`); rm.title="Remove file"; rm.textContent="×";
+    rm.onclick=()=>{ selectedFiles=selectedFiles.filter(x=>fileKey(x)!==key); filePatientAssignments.delete(key); renderThumbs(); };
+    d.appendChild(rm);
+    if(f.type==="application/pdf" || f.name.toLowerCase().endsWith(".pdf")){
+      const box=document.createElement("div");
+      box.style.height="72px"; box.style.display="flex"; box.style.alignItems="center";
+      box.style.justifyContent="center"; box.style.fontWeight="800"; box.style.fontSize="20px";
+      box.style.background="#f1f1ff"; box.style.color="#5f60dd"; box.style.letterSpacing=".04em";
+      box.textContent="PDF"; d.appendChild(box);
+    } else {
+      const box=document.createElement("div"); box.style.height="72px"; box.style.display="flex"; box.style.alignItems="center"; box.style.justifyContent="center"; box.style.fontWeight="800"; box.style.fontSize="20px"; box.style.background="#eef9fe"; box.style.color="#5b7893"; box.style.letterSpacing=".04em"; box.textContent="IMG"; d.appendChild(box);
+    }
+    const cap=document.createElement("div"); cap.textContent=f.name; cap.title=f.name; d.appendChild(cap);
+    const sel=document.createElement("select");
+    sel.innerHTML='<option value="">Assign to patient…</option>'+names.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join("");
+    sel.value=assigned;
+    sel.onchange=()=>{ if(sel.value) filePatientAssignments.set(key,sel.value); else filePatientAssignments.delete(key); d.classList.toggle("unassigned",!sel.value); };
+    d.appendChild(sel);
+    $("thumbs").appendChild(d);
+  });
+}
+function clearPatientData({message="Patient data cleared from this session.",resetPatients=true}={}){
+  selectedFiles=[];
+  filePatientAssignments.clear();
+  extractionMemoryCache.clear();
+  patientReportCache.clear();
+  facilityReportCache.clear();
+  evidenceSummaryCache.clear();
+  latestTextReport="";
+  $("files").value="";
+  $("moreFiles").value="";
+  $("thumbs").innerHTML="";
+  $("fileCount").textContent="No files loaded. Add PT/OT/SLP notes and the NP/MD chart note.";
+  $("rawText").value="";
+  $("names").value="";
+  $("ocrStatus").textContent="";
+  $("results").innerHTML='<div class="emptyState">Your generated patient breakdown will appear here.</div>';
+  if(resetPatients){ $("admitRows").innerHTML=""; addAdmitRow(); }
+  $("aiStatus").textContent=message;
+  $("privacyStatus").textContent="Privacy session active · patient data currently cleared";
+}
+$("clearBtn").onclick=()=>clearPatientData();
+const PRIVACY_IDLE_MS=20*60*1000;
+let privacyIdleTimer=null;
+function resetPrivacyIdleTimer(){
+  clearTimeout(privacyIdleTimer);
+  privacyIdleTimer=setTimeout(()=>clearPatientData({message:"Patient data was automatically cleared after 20 minutes of inactivity."}),PRIVACY_IDLE_MS);
+}
+["pointerdown","keydown","touchstart","input"].forEach(evt=>document.addEventListener(evt,resetPrivacyIdleTimer,{passive:true}));
+resetPrivacyIdleTimer();
+window.addEventListener("pagehide",()=>{
+  extractionMemoryCache.clear(); patientReportCache.clear(); facilityReportCache.clear(); evidenceSummaryCache.clear(); latestTextReport="";
+});
+
+
+let pdfJsReadyPromise=null;
+function waitForPdfJs(){
+  if(window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+  if(pdfJsReadyPromise) return pdfJsReadyPromise;
+  pdfJsReadyPromise=new Promise((resolve,reject)=>{
+    let tries=0;
+    const check=()=>{
+      if(window.pdfjsLib) return resolve(window.pdfjsLib);
+      if(++tries>=100){ pdfJsReadyPromise=null; return reject(new Error("PDF reader did not load.")); }
+      setTimeout(check,50);
+    };
+    check();
+  });
+  return pdfJsReadyPromise;
+}
+
+async function extractPdf(file, fileIndex){
+  const key='extract:'+fileKey(file);
+  const cached=await cacheGet(key);
+  if(cached){
+    $("ocrStatus").textContent=`Using in-session extracted text for ${file.name}…`;
+    return cached.replace(/^\n*--- PDF \d+:/,`\n\n--- PDF ${fileIndex+1}:`);
+  }
+  const pdfjsLib=await waitForPdfJs();
+  const buf=await file.arrayBuffer();
+  const pdf=await pdfjsLib.getDocument({data:buf}).promise;
+  let out=`\n\n--- PDF ${fileIndex+1}: ${file.name} ---`;
+  try{
+    for(let p=1;p<=pdf.numPages;p++){
+      $("ocrStatus").textContent=`Reading file ${fileIndex+1} of ${selectedFiles.length}: ${file.name} · page ${p} of ${pdf.numPages}…`;
+      const page=await pdf.getPage(p);
+      try{
+        const content=await page.getTextContent();
+        let pageText=content.items.map(x=>x.str).join(" ").trim();
+        if(pageText.length < 40){
+          $("ocrStatus").textContent=`OCR file ${fileIndex+1} of ${selectedFiles.length}: ${file.name} · page ${p} of ${pdf.numPages}…`;
+          const base=page.getViewport({scale:1});
+          const scale=Math.max(1,Math.min(1.4,1800/Math.max(base.width,base.height)));
+          const viewport=page.getViewport({scale});
+          const canvas=document.createElement("canvas");
+          const ctx=canvas.getContext("2d",{alpha:false});
+          canvas.width=Math.ceil(viewport.width); canvas.height=Math.ceil(viewport.height);
+          await page.render({canvasContext:ctx,viewport}).promise;
+          const result=await Tesseract.recognize(canvas,"eng");
+          pageText=result.data.text||"";
+          canvas.width=1; canvas.height=1;
+        }
+        out+=`\n\n--- PAGE ${p} ---\n${pageText}`;
+      }finally{
+        try{page.cleanup();}catch(_){}
+      }
+      if(p%3===0) await new Promise(r=>setTimeout(r,0));
+    }
+  }finally{
+    try{await pdf.destroy();}catch(_){}
+  }
+  await cachePut(key,out);
+  return out;
+}
+
+async function extractAnyFile(f,i){
+  const singlePatient=patientNames().length===1?patientNames()[0]:"";
+  const assigned=filePatientAssignments.get(fileKey(f))||singlePatient||"UNASSIGNED";
+  const isPdf=f.type==="application/pdf" || f.name.toLowerCase().endsWith(".pdf");
+  if(isPdf) return `\n\n=== PATIENT DOCUMENT GROUP: ${assigned} ===`+await extractPdf(f,i);
+  const key='extract:'+fileKey(f);
+  let text=await cacheGet(key);
+  if(!text){
+    $("ocrStatus").textContent=`OCR reading screenshot ${i+1} of ${selectedFiles.length}…`;
+    const r=await Tesseract.recognize(f,"eng");
+    text=`\n\n--- SCREENSHOT ${i+1}: ${f.name} ---\n${r.data.text}`;
+    await cachePut(key,text);
+  }
+  return `\n\n=== PATIENT DOCUMENT GROUP: ${assigned} ===`+text;
+}
+
+$("extractBtn").onclick=async()=>{
+  if(!selectedFiles.length){$("ocrStatus").textContent="Choose at least one PDF or screenshot first.";return}
+  const names=patientNames();
+  if(names.length===1){
+    selectedFiles.forEach(f=>{ if(!filePatientAssignments.get(fileKey(f))) filePatientAssignments.set(fileKey(f),names[0]); });
+    renderThumbs();
+  }
+  const unassigned=selectedFiles.filter(f=>!filePatientAssignments.get(fileKey(f))).length;
+  if(names.length>1 && unassigned){
+    $("ocrStatus").textContent=`Assign all files to a patient first (${unassigned} unassigned). This prevents resident records from being mixed.`;
+    return;
+  }
+  $("extractBtn").disabled=true;
+  try{
+    $("ocrStatus").textContent=`Preparing ${selectedFiles.length} files… Large batches are processed in a memory-safe queue.`;
+    const pieces=await mapLimit(selectedFiles,EXTRACT_CONCURRENCY,extractAnyFile);
+    const combined=pieces.join("");
+    $("rawText").value=combined.trim();
+    $("ocrStatus").textContent="Extraction complete. Text is kept only for this browser session and is not persistently cached by the app.";
+  }catch(e){
+    $("ocrStatus").textContent="Could not read one of the files: "+(e.message||"unknown error");
+  }finally{$("extractBtn").disabled=false}
+};
+
+function maskNames(text){
+  const names=$("names").value.split(",").map(x=>x.trim()).filter(Boolean), map={}; let masked=text;
+  names.forEach((name,i)=>{
+    const label=`Patient ${String.fromCharCode(65+i)}`; map[label]=name;
+    const esc=name.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+    masked=masked.replace(new RegExp(esc,"gi"),label);
+  });
+  return {masked,map};
+}
+function restoreNames(text,map){let out=text;Object.entries(map).forEach(([label,name])=>out=out.replaceAll(label,name));return out}
+
+function admissionContextFor(patientName){
+  const review=localTodayISO();
+  const target=(patientName||"").trim().toLowerCase();
+  for(const row of document.querySelectorAll(".admitRow")){
+    const name=row.querySelector(".admitName")?.value.trim()||"";
+    const date=row.querySelector(".admitDate")?.value||"";
+    const insurance=row.querySelector(".admitInsurance")?.value.trim()||"";
+    if(name && date && insurance && name.toLowerCase()===target){
+      const days=inclusiveDayCount(date,review);
+      return `REPORT/REVIEW DATE: ${review}\nUSER-ENTERED PATIENT ADMISSION DATA (authoritative):\n- ${name} | Admit Date: ${date} | Days Since Admission: Day ${days} | Insurance/Payer: ${insurance}\nIMPORTANT: Use this admission date, day count, and insurance/payer exactly for this resident. Admission/start date is Day 1.\n\n`;
+    }
+  }
+  return `REPORT/REVIEW DATE: ${review}\n`;
+}
+
+function extractedPatientGroups(text){
+  const marker=/^=== PATIENT DOCUMENT GROUP:\s*(.+?)\s*===\s*$/gm;
+  const matches=[...text.matchAll(marker)];
+  const groups=new Map();
+  const names=patientNames();
+  if(!matches.length){
+    groups.set(names[0]||"UNASSIGNED",text);
+    return groups;
+  }
+  for(let i=0;i<matches.length;i++){
+    let name=(matches[i][1]||"UNASSIGNED").trim();
+    if(name==="UNASSIGNED" && names.length===1) name=names[0];
+    const segStart=matches[i].index+matches[i][0].length;
+    const segEnd=i+1<matches.length?matches[i+1].index:text.length;
+    const seg=text.slice(segStart,segEnd).trim();
+    groups.set(name,(groups.get(name)||"")+`\n\n${seg}`);
+  }
+  return groups;
+}
+
+function chunkSourceText(text,maxChars=18000){
+  if(text.length<=maxChars) return [text];
+  const parts=text.split(/(?=\n--- PAGE \d+ ---\n|\n--- PDF \d+:|\n--- SCREENSHOT \d+:)/g);
+  const chunks=[]; let cur="";
+  for(const part of parts){
+    if(!part) continue;
+    if(cur && cur.length+part.length>maxChars){ chunks.push(cur); cur=""; }
+    if(part.length>maxChars){
+      if(cur){chunks.push(cur);cur="";}
+      for(let i=0;i<part.length;i+=maxChars) chunks.push(part.slice(i,i+maxChars));
+    }else cur+=part;
+  }
+  if(cur) chunks.push(cur);
+  return chunks.filter(x=>x.trim());
+}
+
+const ANALYZE_ENDPOINT=new URL("/api/analyze",window.location.origin).toString();
+
+function friendlyAnalysisError(message){
+  const m=String(message||"");
+  const clean=m.replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim();
+  const diagnosticAt=clean.toUpperCase().indexOf("DIAGNOSTIC:");
+  if(diagnosticAt>=0) return clean.slice(diagnosticAt,diagnosticAt+1200);
+  const openaiAt=clean.toLowerCase().indexOf("openai diagnostic:");
+  if(openaiAt>=0) return clean.slice(openaiAt,openaiAt+1200);
+  if(/Request ID:|Inactivity Timeout|504|timed out|timeout/i.test(clean)) return "The analysis service took too long on that request.";
+  if(/429|rate limit/i.test(clean)) return "The AI service is temporarily busy.";
+  if(/500|502|503|server error|internal/i.test(clean)) return "The analysis service had a temporary server problem.";
+  return clean.slice(0,700)||"Analysis could not be completed.";
+}
+function formatDiagnostic(d){
+  if(!d || typeof d!=="object") return "";
+  const parts=[];
+  if(d.upstream_status) parts.push(`HTTP ${d.upstream_status}${d.upstream_status_text?` ${d.upstream_status_text}`:""}`);
+  if(d.event) parts.push(d.event);
+  if(d.error_type) parts.push(`type=${d.error_type}`);
+  if(d.error_code) parts.push(`code=${d.error_code}`);
+  if(d.error_param) parts.push(`param=${d.error_param}`);
+  if(d.error_message) parts.push(`message=${String(d.error_message).replace(/\s+/g," ").slice(0,300)}`);
+  if(d.openai_request_id) parts.push(`request=${d.openai_request_id}`);
+  if(d.model) parts.push(`model=${d.model}`);
+  if(d.mode) parts.push(`mode=${d.mode}`);
+  return parts.join(" · ");
+}
+
+async function callAnalysis(text,mode,statusLabel){
+  let lastErr;
+  for(let attempt=1;attempt<=1;attempt++){
+    const controller=new AbortController();
+    const timeout=setTimeout(()=>controller.abort(),60000);
+    try{
+      if(statusLabel) $("aiStatus").textContent=statusLabel;
+      const r=await fetch(ANALYZE_ENDPOINT,{
+        method:"POST",
+        headers:{"Content-Type":"application/json","Accept":"text/plain, application/json"},
+        body:JSON.stringify({text,mode}),
+        signal:controller.signal
+      });
+      if(!r.ok){
+        let message=`Analysis failed (${r.status})`;
+        try{
+          const ct=r.headers.get("content-type")||"";
+          if(ct.includes("application/json")){
+            const d=await r.json();
+            const diag=formatDiagnostic(d.diagnostic);
+            message=diag?`DIAGNOSTIC: ${d.error||"Analysis failed"} · ${diag}`:(d.error||message);
+          }
+          else { const t=await r.text(); if(t) message=t.slice(0,900); }
+        }catch(_){}
+        throw new Error(message);
+      }
+      let streamed="";
+      if(r.body){
+        const reader=r.body.getReader(),decoder=new TextDecoder();
+        while(true){
+          const {value,done}=await reader.read();
+          if(done) break;
+          streamed+=decoder.decode(value,{stream:true});
+        }
+        streamed+=decoder.decode();
+      }else streamed=await r.text();
+      if(streamed.includes("\n\nERROR_DIAGNOSTIC:")){
+        const rawDiag=streamed.split("\n\nERROR_DIAGNOSTIC:").pop().trim();
+        let diagText=rawDiag;
+        try{ diagText=formatDiagnostic(JSON.parse(rawDiag)); }catch(_){}
+        throw new Error(`DIAGNOSTIC: ${diagText}`);
+      }
+      if(streamed.includes("\n\nERROR:")) throw new Error(friendlyAnalysisError(streamed.split("\n\nERROR:").pop()));
+      if(!streamed.trim()) throw new Error("The analysis service returned an empty report.");
+      return streamed.trim();
+    }catch(e){
+      lastErr=e?.name==="AbortError"?new Error("The analysis service took too long on that request."):e;
+      const msg=String(lastErr?.message||lastErr);
+      // Account/configuration/validation errors will not improve with an immediate retry.
+      if(/credit_balance_exhausted|no credits remaining|invalid_api_key|authentication|unauthorized|forbidden|HTTP 400|HTTP 401|HTTP 403/i.test(msg)) break;
+      if(attempt<1) await new Promise(r=>setTimeout(r,250*attempt));
+    }finally{
+      clearTimeout(timeout);
+    }
+  }
+  throw lastErr||new Error("Analysis could not be completed.");
+}
+
+async function condenseEvidencePiece(patientName,baseContext,chunk,label,progressText,depth=0){
+  const cacheKey=fastHash(patientName+"\n"+baseContext+"\n"+chunk);
+  if(evidenceSummaryCache.has(cacheKey)) return evidenceSummaryCache.get(cacheKey);
+  const input=baseContext+`PATIENT: ${patientName}\n${label}\n`+chunk;
+  const masked=maskNames(input);
+  try{
+    const out=restoreNames(await callAnalysis(masked.masked,"extract",progressText),masked.map);
+    evidenceSummaryCache.set(cacheKey,out);
+    return out;
+  }catch(err){
+    if(chunk.length<=1800 || depth>=4) throw err;
+    const target=Math.max(1400,Math.floor(chunk.length/2));
+    const pieces=chunkSourceText(chunk,target);
+    if(pieces.length<2) throw err;
+    const summaries=[];
+    for(let i=0;i<pieces.length;i++){
+      summaries.push(await condenseEvidencePiece(
+        patientName,baseContext,pieces[i],`${label} PART ${i+1} OF ${pieces.length}`,
+        `Processing ${patientName} — smaller document section ${i+1} of ${pieces.length}…`,depth+1
+      ));
+    }
+    const joined=summaries.join("\n\n");
+    evidenceSummaryCache.set(cacheKey,joined);
+    return joined;
+  }
+}
+
+async function reduceEvidenceReliable(patientName,baseContext,evidence){
+  let joined=evidence.join("\n\n--- NEXT SOURCE CHUNK ---\n\n");
+  let pass=1;
+  // Speed-first: keep one evidence set whenever it is already compact enough for final synthesis.
+  while(joined.length>18000 && pass<=2){
+    const groups=chunkSourceText(joined,8000);
+    const reduced=await mapLimit(groups,2,async(group,i)=>
+      condenseEvidencePiece(
+        patientName,baseContext,group,`EVIDENCE REDUCTION ${pass}.${i+1}`,
+        `Preparing ${patientName} report — evidence section ${i+1} of ${groups.length}…`
+      )
+    );
+    joined=reduced.join("\n\n--- NEXT EVIDENCE GROUP ---\n\n");
+    pass++;
+  }
+  return joined;
+}
+
+async function buildPatientFromEvidence(patientName,baseContext,evidence,index,total){
+  let current=evidence;
+  for(let attempt=1;attempt<=2;attempt++){
+    const synthesis=baseContext+`PATIENT: ${patientName}\nCONDENSED SOURCE EVIDENCE:\n`+current;
+    const masked=maskNames(synthesis);
+    try{
+      return restoreNames(await callAnalysis(masked.masked,"patient",`Building ${patientName} report (${index} of ${total})…`),masked.map);
+    }catch(err){
+      if(attempt===2) throw new Error(`Final report generation failed after evidence extraction: ${friendlyAnalysisError(err.message)}`);
+      const groups=chunkSourceText(current,7000);
+      const tighter=await mapLimit(groups,2,async(group,i)=>
+        condenseEvidencePiece(
+          patientName,baseContext,group,`FINAL SYNTHESIS REDUCTION ${i+1}`,
+          `Preparing ${patientName} final report — section ${i+1} of ${groups.length}…`
+        )
+      );
+      current=tighter.join("\n\n");
+    }
+  }
+}
+
+async function generatePatientReliable(patientName,source,index,total){
+  const baseContext=admissionContextFor(patientName);
+  source=compactSourceText(source);
+  const localIcdEvidence=extractLocalIcdEvidence(source);
+  const analysisContext=baseContext+(localIcdEvidence?localIcdEvidence+"\n\n":"");
+  const cacheKey=fastHash(patientName+"\n"+analysisContext+"\n"+source);
+  if(patientReportCache.has(cacheKey)){
+    $("aiStatus").textContent=`Using completed session report for ${patientName}…`;
+    return patientReportCache.get(cacheKey);
+  }
+
+  // Speed-first path: most resident charts can be analyzed in one call.
+  // If that call fails, the app automatically falls back to smaller evidence calls.
+  const directInput=analysisContext+`PATIENT DOCUMENT GROUP: ${patientName}\n`+source;
+  const direct=maskNames(directInput);
+  if(direct.masked.length<=100000){
+    try{
+      const result=await callAnalysis(direct.masked,"patient",`Analyzing ${patientName} (${index} of ${total})…`);
+      const restored=restoreNames(result,direct.map);
+      patientReportCache.set(cacheKey,restored);
+      return restored;
+    }catch(err){
+      // Do not waste time chunking for a known non-retryable account/configuration error.
+      if(/credit_balance_exhausted|no credits remaining|invalid_api_key|authentication|unauthorized|forbidden/i.test(String(err?.message||err))) throw err;
+    }
+  }
+
+  const chunks=chunkSourceText(source,22000);
+  const results=await mapLimit(chunks,3,async(chunk,i)=>{
+    try{
+      return {ok:true,text:await condenseEvidencePiece(
+        patientName,analysisContext,chunk,`SOURCE ${i+1} OF ${chunks.length}`,
+        `Processing ${patientName} — document section ${i+1} of ${chunks.length}…`
+      )};
+    }catch(err){
+      return {ok:false,text:`SOURCE ${i+1} OF ${chunks.length}: Evidence extraction unavailable after smaller-section retries. Do not infer facts from this missing section.`,err:friendlyAnalysisError(err?.message||err),index:i+1};
+    }
+  });
+  const evidence=results.map(r=>r.text);
+  const missed=results.filter(r=>!r.ok);
+  if(missed.length===chunks.length){
+    const diag=missed.map(x=>x.err).find(x=>/DIAGNOSTIC:/i.test(x))||missed[0]?.err||"No diagnostic detail returned.";
+    throw new Error(`Document evidence processing failed for all ${chunks.length} sections. ${diag}`);
+  }
+  if(missed.length){
+    $("aiStatus").textContent=`Continuing ${patientName} — ${missed.length} source section${missed.length===1?"":"s"} could not be processed; completed evidence is being preserved…`;
+  }
+
+  const reducedEvidence=await reduceEvidenceReliable(patientName,analysisContext,evidence);
+  const report=await buildPatientFromEvidence(patientName,analysisContext,reducedEvidence,index,total);
+  patientReportCache.set(cacheKey,report);
+  return report;
+}
+
+$("analyzeBtn").onclick=async()=>{
+  const raw=$("rawText").value.trim();
+  if(!raw){$("aiStatus").textContent="Extract or paste text first.";return}
+  const patientRows=[...document.querySelectorAll(".admitRow")];
+  const missingRows=patientRows.filter(row=>{
+    const name=row.querySelector(".admitName")?.value.trim();
+    const date=row.querySelector(".admitDate")?.value;
+    const insurance=row.querySelector(".admitInsurance")?.value.trim();
+    return !name || !date || !insurance;
+  });
+  if(missingRows.length){
+    missingRows.forEach(row=>{
+      [...row.querySelectorAll("input[required]")].forEach(input=>{ if(!input.value.trim()) input.reportValidity(); });
+    });
+    $("aiStatus").textContent=`Enter resident name, admit date, and insurance for every patient before generating the report.`;
+    (missingRows[0].querySelector("input:invalid")||missingRows[0].querySelector("input"))?.focus();
+    return;
+  }
+  $("analyzeBtn").disabled=true;
+  try{
+    const enteredNames=patientNames();
+    let groupedRaw=raw;
+    if(enteredNames.length===1){
+      groupedRaw=groupedRaw.replace(/===\s*PATIENT DOCUMENT GROUP:\s*UNASSIGNED\s*===/gi,`=== PATIENT DOCUMENT GROUP: ${enteredNames[0]} ===`);
+      if(groupedRaw!==raw) $("rawText").value=groupedRaw;
+    }
+    const groups=extractedPatientGroups(groupedRaw);
+    const entries=[...groups.entries()].filter(([name,txt])=>txt.trim() && name!=="UNASSIGNED");
+    if(!entries.length){
+      const fallbackName=patientNames()[0]||"Patient";
+      entries.push([fallbackName,groupedRaw]);
+    }
+    $("aiStatus").textContent=`Analyzing ${entries.length} patient${entries.length===1?"":"s"}…`;
+    const results=await mapLimit(entries,PATIENT_ANALYSIS_CONCURRENCY,async(entry,i)=>{
+      const [name,source]=entry;
+      try{
+        return {name,report:await generatePatientReliable(name,source,i+1,entries.length),error:null};
+      }catch(e){
+        return {name,report:null,error:friendlyAnalysisError(e.message)};
+      }
+    });
+    const patientReports=results.filter(r=>r.report).map(r=>r.report);
+    const failed=results.filter(r=>!r.report);
+    if(!patientReports.length){
+      const detail=failed.map(r=>`${r.name}: ${r.error}`).join(" | ");
+      throw new Error(detail||"No patient report could be generated.");
+    }
+
+    // Show completed patient reports immediately; the smaller facility snapshot can finish afterward.
+    const patientOnlyReport=patientReports.join("\n\n");
+    latestTextReport=patientOnlyReport;
+    renderReport(patientOnlyReport);
+    setEditMode(false);
+    $("aiStatus").textContent=`Patient report${patientReports.length===1?"":"s"} ready. Finishing facility-level snapshot…`;
+
+    let facility="";
+    try{
+      const facilityInput=patientOnlyReport;
+      const facilityKey=fastHash(facilityInput);
+      if(facilityReportCache.has(facilityKey)) facility=facilityReportCache.get(facilityKey);
+      else {
+        const maskedFacility=maskNames(facilityInput);
+        facility=restoreNames(await callAnalysis(maskedFacility.masked,"facility","Building facility-level UR snapshot…"),maskedFacility.map);
+        facilityReportCache.set(facilityKey,facility);
+      }
+    }catch(_){
+      facility="FACILITY-LEVEL UR SNAPSHOT\nPriority Review: See patient-specific UR summaries above.\nDischarge / Clinical Barriers: See patient-specific discharge plans and alerts above.";
+    }
+
+    const report=patientReports.join("\n\n")+"\n\n"+facility;
+    latestTextReport=report;
+    renderReport(report);
+    setEditMode(false);
+    if(failed.length){
+      $("aiStatus").textContent=`Generated ${patientReports.length} patient report${patientReports.length===1?"":"s"}. Could not finish: ${failed.map(r=>`${r.name} (${r.error})`).join("; ")}. Click Generate again to retry; completed patients are cached for this session.`;
+    }else{
+      $("aiStatus").textContent="Patient breakdown generated. You can edit it before copying or downloading it.";
+    }
+  }catch(e){
+    $("aiStatus").textContent=`Could not finish the patient breakdown. ${friendlyAnalysisError(e.message)} Your uploaded files, assignments, and completed evidence are still available for this session. Please click Generate again.`;
+  }finally{
+    $("analyzeBtn").disabled=false;
+  }
+};
+
+function esc(s){return s.replace(/[&<>]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m]))}
+function parsePatientBlock(block){
+  const lines=block.split("\n");
+  const obj={name:"",top:{},sections:{}};
+  let section="TOP";
+  for(const raw of lines){
+    const line=raw.trim();
+    if(!line) continue;
+    if(line.startsWith("PATIENT: ")){ obj.name=line.replace("PATIENT: ","").trim(); continue; }
+    if(["CLINICAL / H&P","PREVIOUS FUNCTION & EQUIPMENT","CURRENT STATUS","THERAPY","DISCHARGE PLAN","UTILIZATION REVIEW SUMMARY"].includes(line)){
+      section=line; obj.sections[section]=[]; continue;
+    }
+    const idx=line.indexOf(":");
+    if(idx>0){
+      const key=line.slice(0,idx).trim(), val=line.slice(idx+1).trim();
+      if(section==="TOP") obj.top[key]=val;
+      else obj.sections[section].push([key,val]);
+    } else if(section!=="TOP"){
+      obj.sections[section].push(["",line]);
+    }
+  }
+  return obj;
+}
+
+
+function ensureStairsRow(p){
+  const current=p.sections["CURRENT STATUS"]||(p.sections["CURRENT STATUS"]=[]);
+  const has=current.some(([k])=>String(k||"").trim().toLowerCase()==="stairs");
+  if(has) return;
+
+  const candidates=[];
+  for(const [sectionName,rows] of Object.entries(p.sections||{})){
+    if(sectionName==="CURRENT STATUS" || !Array.isArray(rows)) continue;
+    for(const [k,v] of rows){
+      const joined=`${k||""}: ${v||""}`.trim();
+      if(/\b(stairs?|steps?|ste|flight|stairway)\b/i.test(joined)) candidates.push(joined);
+    }
+  }
+
+  if(candidates.length){
+    const requirement=candidates[0].replace(/^\s*:?\s*/,"").trim();
+    current.push(["Stairs",`Not yet assessed/completed — home/discharge stair requirement noted: ${requirement}`]);
+  }else{
+    current.push(["Stairs","Not documented — stair/step requirements at home/discharge have not yet been identified."]);
+  }
+}
+
+function priorityClass(v){
+  const x=(v||"").toLowerCase();
+  if(x.includes("high")) return "high";
+  if(x.includes("watch")) return "watch";
+  return "routine";
+}
+
+function sectionHtml(title, rows, extraClass=""){
+  if(!rows || !rows.length) return "";
+  let body="";
+  for(const [k,v] of rows){
+    if(title!=="PATIENT INFORMATION" && /^(not shown|n\/a|none)$/i.test((v||"").trim())) continue;
+    if(title==="UTILIZATION REVIEW SUMMARY" && k==="UR Priority"){
+      body += `<div class="field"><div class="k">${esc(k)}</div><div class="v" data-editable="1"><span class="priority ${priorityClass(v)}">${esc(v)}</span></div></div>`;
+    } else if(title==="UTILIZATION REVIEW SUMMARY" && k==="Recommended Follow-Up"){
+      body += `<div class="field"><div class="k">${esc(k)}</div><div class="v follow" data-editable="1">${esc(v)}</div></div>`;
+    } else if(title==="CURRENT STATUS" && k==="Stairs" && /not documented|not yet assessed|not yet completed|not assessed|not completed/i.test((v||"").trim())){
+      body += `<div class="field"><div class="k">${esc(k)}</div><div class="v" data-editable="1"><span class="stairAlert">⚠ ${esc(v)}</span></div></div>`;
+    } else if(title==="UTILIZATION REVIEW SUMMARY" && k==="Caregiver Support Match" && /concern|needs verification|mismatch|insufficient|unknown|not documented|not established/i.test((v||"").trim())){
+      body += `<div class="field"><div class="k">${esc(k)}</div><div class="v" data-editable="1"><span class="caregiverAlert">⚠ ${esc(v)}</span></div></div>`;
+    } else if(title==="CURRENT STATUS" && k==="Home Oxygen Alert" && !/^none|not shown$/i.test((v||"").trim())){
+      body += `<div class="field"><div class="k">${esc(k)}</div><div class="v" data-editable="1"><span class="homeO2Alert">⚠ ${esc(v)}</span></div></div>`;
+    } else if(title==="DISCHARGE PLAN" && k==="AI-Recommended DME" && !/^none|not shown$/i.test((v||"").trim())){
+      body += `<div class="field"><div class="k">${esc(k)}</div><div class="v" data-editable="1"><span class="aiDme">${esc(v)}</span></div></div>`;
+    } else if(title==="DISCHARGE PLAN" && k==="Swallowing / Diet Readiness Alert" && !/^none|not shown$/i.test((v||"").trim())){
+      body += `<div class="field"><div class="k">${esc(k)}</div><div class="v" data-editable="1"><span class="swallowAlert">⚠ ${esc(v)}</span></div></div>`;
+    } else if(title==="DISCHARGE PLAN" && k==="Discharge Destination Alert" && !/^none|not shown$/i.test((v||"").trim())){
+      body += `<div class="field"><div class="k">${esc(k)}</div><div class="v" data-editable="1"><span class="destinationAlert">⚠ ${esc(v)}</span></div></div>`;
+    } else if((k==="Oxygen Conflict" || k==="Conflicting Documentation") && !/^none|not shown$/i.test((v||"").trim())){
+      body += `<div class="field"><div class="k">${esc(k)}</div><div class="v" data-editable="1"><span class="conflict">⚠ ${esc(v)}</span></div></div>`;
+    } else {
+      body += `<div class="field"><div class="k">${esc(k)}</div><div class="v" data-editable="1">${esc(v)}</div></div>`;
+    }
+  }
+  return `<div class="section ${extraClass}"><h4>${esc(title)}</h4><div class="kv">${body}</div></div>`;
+}
+
+function renderReport(text){
+  $("results").innerHTML="";
+  const facilityMarker="\nFACILITY-LEVEL UR SNAPSHOT";
+  let patientText=text, facilityText="";
+  const fi=text.indexOf(facilityMarker);
+  if(fi>=0){ patientText=text.slice(0,fi); facilityText=text.slice(fi+1); }
+
+  const blocks=patientText.split(/\n(?=PATIENT: )/g).filter(x=>x.trim());
+  blocks.forEach(block=>{
+    if(!block.trim().startsWith("PATIENT: ")) return;
+    const p=parsePatientBlock(block);
+    ensureStairsRow(p);
+    const meta="";
+
+    const card=document.createElement("div");
+    card.className="patient";
+    card.innerHTML=
+      `<div class="patientHead"><h3 data-editable="1">${esc(p.name||"Patient")}</h3>${meta ? `<div class="meta">${esc(meta)}</div>` : ""}</div>` +
+      sectionHtml("PATIENT INFORMATION",[
+        ["Admit Date",p.top["Start/Adm Date"]||p.top["Admit Date"]||"Not shown"],
+        ["Days Since Admission",p.top["Days Since Admission"]||"Not shown"],
+        ["Payer",p.top["Payer"]||"Not shown"],
+        ["Primary ICD-10",p.top["Primary ICD-10"]||p.top["ICD-10"]||"Not shown"],
+        ["Treatment Diagnoses",p.top["Treatment Diagnoses"]||"Not shown"]
+      ]) +
+      sectionHtml("CLINICAL / H&P",p.sections["CLINICAL / H&P"]) +
+      sectionHtml("PREVIOUS FUNCTION & EQUIPMENT",p.sections["PREVIOUS FUNCTION & EQUIPMENT"]) +
+      sectionHtml("CURRENT STATUS",p.sections["CURRENT STATUS"]) +
+      sectionHtml("THERAPY",p.sections["THERAPY"]) +
+      sectionHtml("DISCHARGE PLAN",p.sections["DISCHARGE PLAN"]) +
+      sectionHtml("UTILIZATION REVIEW SUMMARY",p.sections["UTILIZATION REVIEW SUMMARY"],"urbox");
+    $("results").appendChild(card);
+  });
+
+  if(facilityText){
+    const f=document.createElement("div");
+    f.className="facility";
+    f.innerHTML=`<div class="facilityHead">Facility-Level UR Snapshot</div><div class="facilityBody" data-editable="1">${esc(facilityText.replace("FACILITY-LEVEL UR SNAPSHOT","").trim())}</div>`;
+    $("results").appendChild(f);
+  }
+}
+let editMode=false;
+function setEditMode(on){
+  editMode=on;
+  document.querySelectorAll('[data-editable="1"]').forEach(el=>{
+    el.contentEditable=on?"true":"false";
+    el.classList.toggle("editable",on);
+  });
+  $("editBtn").textContent=on?"Done editing":"Edit breakdown";
+  $("aiStatus").textContent=on?"Editing is on. Click any patient name or field value to change it.":"Patient breakdown ready.";
+}
+$("editBtn").onclick=()=>{
+  if(!$("results").querySelector('.patient')) return;
+  setEditMode(!editMode);
+};
+function reportTextFromDom(){
+  const r=$("results");
+  return r.innerText.trim();
+}
+$("copyBtn").onclick=async()=>{
+  const text=reportTextFromDom(); if(!text)return;
+  await navigator.clipboard.writeText(text);
+  $("copyBtn").textContent="Copied";
+  setTimeout(()=>$("copyBtn").textContent="Copy report",1200)
+}
+
+function cleanPdfText(s){
+  return (s||"").replace(/\u26A0/g,"").replace(/\s+/g," ").trim();
+}
+function pdfValueText(s){
+  let t=cleanPdfText(s);
+  // Keep website-style Current Status comparisons readable in the PDF.
+  t=t.replace(/\s+(Best\s*\([^)]*\)\s*:)/gi,"\n\n$1");
+  t=t.replace(/\s+(Best\s*[-–—]\s*[^:]+:)/gi,"\n\n$1");
+  t=t.replace(/\s+(Baseline\s*:)/gi,"\n\n$1");
+  t=t.replace(/\s+(Needs verification\s*:)/gi,"\n\n$1");
+  return t;
+}
+function classifyPdfAlert(label,value){
+  const txt=`${label} ${value}`.toLowerCase();
+  if(/stairs/.test(txt) && /not documented|not yet assessed|not yet completed|not assessed|not completed|have not yet been identified/.test(txt)){
+    return "amber";
+  }
+  if(/caregiver support match/.test(txt) && /concern|needs verification|mismatch|insufficient|unknown|not documented|not established/.test(txt)){
+    return "amber";
+  }
+  if(/home oxygen alert/.test(txt) && !/home oxygen alert\s+(none|not shown)/.test(txt)){
+    return "amber";
+  }
+  if(/swallowing \/ diet readiness alert/.test(txt) && !/swallowing \/ diet readiness alert\s+(none|not shown)/.test(txt)){
+    return "amber";
+  }
+  if(/discharge destination alert/.test(txt) && !/discharge destination alert\s+(none|not shown)/.test(txt)){
+    return "amber";
+  }
+  if(/needs verification|conflict|inconsistent|discrepan|verify|clarif/.test(txt)){
+    return /needs verification|conflict|inconsistent|discrepan/.test(txt)?"red":"amber";
+  }
+  return "";
+}
+
+$("pdfBtn").onclick=()=>{
+  if(!$("results").querySelector(".patient")){
+    $("aiStatus").textContent="Generate a patient breakdown first.";
+    return;
+  }
+  if(!window.jspdf || !window.jspdf.jsPDF){
+    $("aiStatus").textContent="PDF generator did not load. Refresh Safari and try again.";
+    return;
+  }
+
+  const { jsPDF } = window.jspdf;
+  const doc=new jsPDF({orientation:"portrait",unit:"pt",format:"letter"});
+  const pageW=612,pageH=792,margin=34,contentW=pageW-(margin*2),bottom=pageH-34;
+  let y=34;
+
+  const rgb={
+    ink:[23,32,51], muted:[102,112,133], line:[223,227,234],
+    head:[248,249,251], section:[83,98,122], blue:[36,67,158],
+    blueBg:[238,243,255], urBg:[251,252,255], white:[255,255,255],
+    red:[180,35,24], redBg:[255,241,240], redLine:[247,199,195],
+    amber:[181,71,8], amberBg:[255,247,237], amberLine:[254,215,170]
+  };
+  const setText=(c)=>doc.setTextColor(...c);
+  const addPage=()=>{doc.addPage();y=34;};
+  const need=(n)=>{if(y+n>bottom)addPage();};
+  const splitClean=(s,w)=>doc.splitTextToSize(cleanPdfText(s),w);
+  const splitValue=(s,w)=>doc.splitTextToSize(pdfValueText(s),w);
+  const txtH=(lines,leading)=>Math.max(leading,lines.length*leading);
+  const drawLine=(x1,yy,x2)=>{doc.setDrawColor(...rgb.line);doc.setLineWidth(.5);doc.line(x1,yy,x2,yy);};
+
+  function drawAlert(title,body,kind="amber"){
+    const bg=kind==="red"?rgb.redBg:rgb.amberBg;
+    const stroke=kind==="red"?rgb.redLine:rgb.amberLine;
+    const accent=kind==="red"?rgb.red:rgb.amber;
+    const titleW=145, innerW=contentW-28, bodyW=innerW-titleW;
+    doc.setFont("helvetica","bold");doc.setFontSize(8.5);
+    const tl=doc.splitTextToSize(cleanPdfText(title),titleW-8);
+    doc.setFont("helvetica","normal");doc.setFontSize(8.5);
+    const bl=doc.splitTextToSize(cleanPdfText(body),bodyW);
+    const h=Math.max(42,txtH(tl,11.5)+18,txtH(bl,11.5)+18);
+    need(h+9); y+=7;
+    doc.setFillColor(...bg);doc.setDrawColor(...stroke);doc.setLineWidth(.7);
+    doc.roundedRect(margin,y,contentW,h,7,7,"FD");
+    doc.setFont("helvetica","bold");doc.setFontSize(8.5);setText(accent);
+    doc.text(tl,margin+14,y+16);
+    doc.setFont("helvetica","normal");doc.setFontSize(8.5);setText(rgb.ink);
+    doc.text(bl,margin+14+titleW,y+16);
+    y+=h;
+  }
+
+  // Website-like report title.
+  doc.setFont("helvetica","bold");doc.setFontSize(18);setText(rgb.ink);
+  doc.text("Rehab Utilization Review",margin,y+14);
+  doc.setFont("helvetica","normal");doc.setFontSize(9);setText(rgb.muted);
+  doc.text(`Generated ${new Date().toLocaleDateString()}`,margin,y+31);
+  y+=50;
+
+  const patients=[...$("results").querySelectorAll(".patient")];
+  patients.forEach((patient,pi)=>{
+    if(pi>0){need(28);y+=18;}
+    const name=cleanPdfText(patient.querySelector(".patientHead h3")?.innerText||"Patient");
+    const meta=cleanPdfText(patient.querySelector(".patientHead .meta")?.innerText||"");
+    const patientAlerts=[];
+
+    // Patient card header mirrors .patientHead.
+    need(meta?58:48);
+    doc.setFillColor(...rgb.head);
+    doc.setDrawColor(...rgb.line);
+    doc.roundedRect(margin,y,contentW,meta?55:46,8,8,"FD");
+    doc.setFont("helvetica","bold");doc.setFontSize(15);setText(rgb.ink);
+    doc.text(name,margin+14,y+21);
+    if(meta){
+      doc.setFont("helvetica","normal");doc.setFontSize(8.5);setText(rgb.muted);
+      doc.text(splitClean(meta,contentW-28),margin+14,y+38);
+    }
+    y+=meta?55:46;
+
+    [...patient.querySelectorAll(".section")].forEach(section=>{
+      const title=cleanPdfText(section.querySelector("h4")?.innerText||"");
+      const rows=[...section.querySelectorAll(".field")].map(row=>({
+        k:cleanPdfText(row.querySelector(".k")?.innerText||""),
+        v:cleanPdfText(row.querySelector(".v")?.innerText||"")
+      })).filter(r=>r.k||r.v);
+      if(!rows.length)return;
+
+      const isUR=section.classList.contains("urbox");
+      need(36);
+      if(isUR){
+        doc.setFillColor(...rgb.urBg);
+        doc.rect(margin,y,contentW,26,"F");
+      }
+      doc.setFont("helvetica","bold");doc.setFontSize(8);setText(rgb.section);
+      doc.text(title.toUpperCase(),margin+14,y+18);
+      y+=31;
+
+      rows.forEach((r,idx)=>{
+        const labelW=150,valueX=margin+14+labelW,valueW=contentW-28-labelW;
+        doc.setFont("helvetica","bold");doc.setFontSize(9.1);
+        const kl=splitClean(r.k,labelW-12);
+        doc.setFont("helvetica","normal");doc.setFontSize(9.1);
+        const vl=splitValue(r.v,valueW);
+        const rowH=Math.max(36,txtH(kl,13.5)+18,txtH(vl,13.5)+18);
+        need(rowH);
+
+        if(idx>0) drawLine(margin+14,y,margin+contentW-14);
+        doc.setFont("helvetica","bold");doc.setFontSize(9.1);setText([52,64,84]);
+        doc.text(kl,margin+14,y+18);
+        const isAiDme=r.k==="AI-Recommended DME";
+        doc.setFont("helvetica",isAiDme?"italic":"normal");doc.setFontSize(9.1);setText(isAiDme?[72,78,92]:[29,41,57]);
+        doc.text(vl,valueX,y+18,{lineHeightFactor:1.45});
+        y+=rowH;
+
+        const alertKind=classifyPdfAlert(r.k,r.v);
+        if(alertKind){
+          const key=`${r.k}|${r.v}`;
+          if(!patientAlerts.some(a=>a.key===key)) patientAlerts.push({key,kind:alertKind,label:r.k,value:r.v});
+        }
+      });
+      drawLine(margin,y,margin+contentW);
+    });
+
+    // Colored, content-driven alerts. Do not invent new clinical facts.
+    patientAlerts.slice(0,4).forEach(a=>{
+      const title=(/oxygen/i.test(a.label+a.value)?"OXYGEN ALERT":/swallow|diet readiness/i.test(a.label+a.value)?"SWALLOWING / DIET ALERT":/discharge destination/i.test(a.label+a.value)?"DISCHARGE DESTINATION ALERT":/icd|diagnos/i.test(a.label+a.value)?"ICD-10 ALERT":/caregiver/i.test(a.label+a.value)?"CAREGIVER SUPPORT ALERT":"UR ALERT");
+      drawAlert(title,a.value,a.kind);
+    });
+
+    // Bottom of card.
+    doc.setDrawColor(...rgb.line);
+    doc.line(margin,y,margin+contentW,y);
+    y+=10;
+  });
+
+  const facility=$("results").querySelector(".facility");
+  if(facility){
+    need(64);y+=15;
+    const title="Facility-Level UR Snapshot";
+    doc.setFillColor(...rgb.blueBg);
+    doc.setDrawColor(200,211,239);
+    doc.roundedRect(margin,y,contentW,36,8,8,"FD");
+    doc.setFont("helvetica","bold");doc.setFontSize(12);setText(rgb.blue);
+    doc.text(title,margin+14,y+22);
+    y+=36;
+
+    const items=(facility.querySelector(".facilityBody")?.innerText||"")
+      .split(/\n+/).map(x=>x.trim()).filter(Boolean);
+    items.forEach((item,idx)=>{
+      const colon=item.indexOf(":");
+      const label=colon>=0?cleanPdfText(item.slice(0,colon+1)):"";
+      const value=colon>=0?cleanPdfText(item.slice(colon+1)):cleanPdfText(item);
+      const labelW=160,valueX=margin+14+labelW,valueW=contentW-28-labelW;
+      doc.setFont("helvetica","bold");doc.setFontSize(9.1);
+      const kl=splitClean(label,labelW-12);
+      doc.setFont("helvetica","normal");doc.setFontSize(9.1);
+      const vl=splitValue(value,valueW);
+      const rowH=Math.max(36,txtH(kl,13.5)+18,txtH(vl,13.5)+18);
+      need(rowH);
+      if(idx>0)drawLine(margin+14,y,margin+contentW-14);
+      if(label){
+        doc.setFont("helvetica","bold");doc.setFontSize(9.1);setText([52,64,84]);
+        doc.text(kl,margin+14,y+18);
+      }
+      doc.setFont("helvetica","normal");doc.setFontSize(9.1);setText([38,50,71]);
+      doc.text(vl,label?valueX:margin+14,y+18,{lineHeightFactor:1.35});
+      y+=rowH;
+    });
+    drawLine(margin,y,margin+contentW);
+  }
+
+  // Page numbers.
+  const pages=doc.getNumberOfPages();
+  for(let i=1;i<=pages;i++){
+    doc.setPage(i);
+    doc.setFont("helvetica","normal");doc.setFontSize(8);setText(rgb.muted);
+    doc.text(`Page ${i} of ${pages}`,pageW-margin,pageH-18,{align:"right"});
+  }
+
+  doc.save(`rehab-utilization-review-${localTodayISO()}.pdf`);
+  $("pdfBtn").textContent="PDF downloaded";
+  setTimeout(()=>{
+    $("pdfBtn").textContent="Download PDF";
+    clearPatientData({message:"PDF downloaded. Patient data was cleared from the page for privacy."});
+  },700);
+};
+</script>
+</body></html>
